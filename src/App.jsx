@@ -1,17 +1,42 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Button, InputGroup, Glyphicon } from 'react-bootstrap'
+import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap'
 
 import './App.css'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      query: '',
+      creator: 'nerdyemmanuel@gmail.com'
+    }
+  }
+
+  search() {
+    console.log('this.state', this.state);
+  }
+
   render() {
     return (
       <div className="App">
         <div className="App-title">Sportify</div>
         <FormGroup>
-          <FormControl
-            type="text"
-          />
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="Search for an Artist"
+              value={this.state.query}
+              onChange={(event) => {this.setState({query: event.target.value})}}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  return this.search();
+                }
+              }}
+            />
+          <InputGroup.Addon onClick={() => this.search()}>
+              <Glyphicon glyph="search"></Glyphicon>
+            </InputGroup.Addon>
+        </InputGroup>
         </FormGroup>
         <div className="Profile">
           <div>Artist Picture</div>
@@ -20,6 +45,7 @@ class App extends Component {
         <div className="Gallery">
           Gallery
         </div>
+        <div><p>{this.state.creator}</p></div>
       </div>
     )
   }
